@@ -15,8 +15,8 @@
 
         <Button
             android:id="@+id/btn_notification"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/notification"/>
 
         <TextView
@@ -26,53 +26,54 @@
             android:layout_centerHorizontal="true"
             android:gravity="center_horizontal"
             android:text="我的"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_setting"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:background="@drawable/setting"
             android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
 
     <!--userInfo-->
-    <RelativeLayout
-        android:id="@+id/rl_unlogined"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        >
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/rl_unlogined"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="10dp"-->
+        <!--&gt;-->
 
-        <ImageView
-            android:id="@+id/iv_u_userHead"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/head_boy"
-            />
+        <!--<ImageView-->
+            <!--android:id="@+id/iv_u_userHead"-->
+            <!--android:layout_width="75dp"-->
+            <!--android:layout_height="75dp"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:background="@drawable/head_boy"-->
+            <!--/>-->
 
-        <Button
-            android:id="@+id/btn_u_login"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@+id/iv_u_userHead"
-            android:gravity="left|center_vertical"
-            android:background="@android:color/transparent"
-            android:text="登录/注册"
-            />
+        <!--<Button-->
+            <!--android:id="@+id/btn_u_login"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="75dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_toRightOf="@+id/iv_u_userHead"-->
+            <!--android:gravity="left|center_vertical"-->
+            <!--android:background="@android:color/transparent"-->
+            <!--android:text="登录/注册"-->
+            <!--/>-->
 
-    </RelativeLayout>
+    <!--</RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/rl_logined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+
+        android:background="@drawable/user_btn"
         >
 
         <ImageView
@@ -95,7 +96,7 @@
 
         <Button
             android:id="@+id/btn_userInfo"
-            android:layout_width="match_parent"
+            android:layout_width="98dp"
             android:layout_below="@+id/tv_userName"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -104,34 +105,38 @@
             android:layout_toRightOf="@+id/iv_userHead"
             android:gravity="left|center_vertical"
             android:background="@android:color/transparent"
-            android:text="个人信息" />
+            android:text="个人信息"
+            android:drawableRight="@drawable/rightarow"
+            android:drawablePadding="10dp"/>
 
     </RelativeLayout>
 
     <!--add here-->
 
     <Button
-        android:id = "@+id/btn_collection"
+        android:id="@+id/btn_collection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:drawableLeft="@drawable/collection"
-        android:text="我的收藏"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
         android:layout_marginTop="5dp"
-        android:onClick="asd"
-        />
+        android:background="@drawable/user_btn"
+        android:drawableLeft="@drawable/collection"
+        android:drawableRight="@drawable/rightarow"
+        android:drawablePadding="20dp"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="30dp"
+        android:text="我的收藏" />
 
     <Button
         android:id = "@+id/btn_moments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/user_btn"
         android:drawableLeft="@drawable/moments"
-        android:text="我的动态"
+        android:drawableRight="@drawable/rightarow"
+        android:drawablePadding="20dp"
+        android:gravity="left|center_vertical"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:text="我的动态"
         android:layout_marginTop="5dp"
         />
 
@@ -139,11 +144,13 @@
         android:id = "@+id/btn_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/user_btn"
         android:drawableLeft="@drawable/info"
-        android:text="我的消息"
+        android:drawableRight="@drawable/rightarow"
+        android:drawablePadding="20dp"
+        android:gravity="left|center_vertical"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:text="我的消息"
         android:layout_marginTop="5dp"
         />
 
@@ -151,11 +158,13 @@
         android:id = "@+id/btn_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/user_btn"
         android:drawableLeft="@drawable/activity"
-        android:text="我的活动"
+        android:drawableRight="@drawable/rightarow"
+        android:drawablePadding="20dp"
+        android:gravity="left|center_vertical"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:text="我的活动"
         android:layout_marginTop="5dp"
         />
 
@@ -163,11 +172,13 @@
         android:id = "@+id/btn_CustomerService"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
+        android:background="@drawable/user_btn"
         android:drawableLeft="@drawable/customerservice"
-        android:text="我的客服"
+        android:drawableRight="@drawable/rightarow"
+        android:drawablePadding="20dp"
+        android:gravity="left|center_vertical"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:text="我的客服"
         android:layout_marginTop="5dp"
         />
 

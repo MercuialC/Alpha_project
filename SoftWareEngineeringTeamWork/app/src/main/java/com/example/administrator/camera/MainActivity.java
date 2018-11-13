@@ -43,13 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout rl_un;
 
-
-    private void setDrawleft(RadioButton radioButton, int res) {
-        Drawable drawable = getResources().getDrawable(res);
-        drawable.setBounds(0, 0, 30, 30);
-        radioButton.setCompoundDrawables(null, drawable, null, null);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,10 +113,5 @@ public class MainActivity extends AppCompatActivity {
             ft.hide(f);
         }
         ft.commit();
-    }
-
-    public void asd(View view) {
-        Toast.makeText(this, "asd", Toast.LENGTH_SHORT).show();
-
     }
 }
