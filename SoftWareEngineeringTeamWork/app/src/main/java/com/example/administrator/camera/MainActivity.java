@@ -1,5 +1,6 @@
 package com.example.administrator.camera;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.text.UFormat;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -16,11 +18,14 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ActionMenuView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton btnuser;
     private RadioGroup mRgTab;
     private List<Fragment> mFragmentList = new ArrayList<>();
+
+    private RelativeLayout rl_un;
+
 
     private void setDrawleft(RadioButton radioButton, int res) {
         Drawable drawable = getResources().getDrawable(res);
@@ -96,11 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 fragment = HomeFragment.newInstance();
             } else if (tag.equals(UserFragment.class.getName())) {
                 fragment = UserFragment.newInstance();
+                Activity activity = fragment.getActivity();
             }
-
-        mFragmentList.add(fragment);
-        transaction.add(R.id.fl_container, fragment, fragment.getClass().getName());
-    }
+            mFragmentList.add(fragment);
+            transaction.add(R.id.fl_container, fragment, fragment.getClass().getName());
+        }
         transaction.commitAllowingStateLoss();
 }
     /**
@@ -112,5 +120,10 @@ public class MainActivity extends AppCompatActivity {
             ft.hide(f);
         }
         ft.commit();
+    }
+
+    public void asd(View view) {
+        Toast.makeText(this, "asd", Toast.LENGTH_SHORT).show();
+
     }
 }

@@ -1,14 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UserFragment">
+    tools:context=".UserFragment"
+    android:orientation="vertical"
+    android:background="#ebebeb">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!--top-->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp">
 
-</FrameLayout>
+        <Button
+            android:id="@+id/btn_notification"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/notification"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="我的"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/btn_setting"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/setting"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <!--userInfo-->
+    <RelativeLayout
+        android:id="@+id/rl_unlogined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_u_userHead"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/head_boy"
+            />
+
+        <Button
+            android:id="@+id/btn_u_login"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@+id/iv_u_userHead"
+            android:gravity="left|center_vertical"
+            android:background="@android:color/transparent"
+            android:text="登录/注册"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_logined"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/iv_userHead"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/head_boy"
+            />
+
+        <TextView
+            android:id="@+id/tv_userName"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:layout_toRightOf="@id/iv_userHead"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:text="userName"
+            />
+
+        <Button
+            android:id="@+id/btn_userInfo"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/tv_userName"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_toRightOf="@+id/iv_userHead"
+            android:gravity="left|center_vertical"
+            android:background="@android:color/transparent"
+            android:text="个人信息" />
+
+    </RelativeLayout>
+
+    <!--add here-->
+
+    <Button
+        android:id = "@+id/btn_collection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/collection"
+        android:text="我的收藏"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="5dp"
+        android:onClick="asd"
+        />
+
+    <Button
+        android:id = "@+id/btn_moments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/moments"
+        android:text="我的动态"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <Button
+        android:id = "@+id/btn_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/info"
+        android:text="我的消息"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <Button
+        android:id = "@+id/btn_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/activity"
+        android:text="我的活动"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="5dp"
+        />
+
+    <Button
+        android:id = "@+id/btn_CustomerService"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:drawableLeft="@drawable/customerservice"
+        android:text="我的客服"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_marginTop="5dp"
+        />
+
+</LinearLayout>
