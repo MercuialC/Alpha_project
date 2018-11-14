@@ -37,42 +37,10 @@
 
     </RelativeLayout>
 
-    <!--userInfo-->
-    <!--<RelativeLayout-->
-        <!--android:id="@+id/rl_unlogined"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="10dp"-->
-        <!--&gt;-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/iv_u_userHead"-->
-            <!--android:layout_width="75dp"-->
-            <!--android:layout_height="75dp"-->
-            <!--android:layout_margin="10dp"-->
-            <!--android:background="@drawable/head_boy"-->
-            <!--/>-->
-
-        <!--<Button-->
-            <!--android:id="@+id/btn_u_login"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="75dp"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:layout_toRightOf="@+id/iv_u_userHead"-->
-            <!--android:gravity="left|center_vertical"-->
-            <!--android:background="@android:color/transparent"-->
-            <!--android:text="登录/注册"-->
-            <!--/>-->
-
-    <!--</RelativeLayout>-->
-
     <RelativeLayout
-        android:id="@+id/rl_logined"
+        android:id="@+id/rl_userInfoBlock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:background="@drawable/user_btn"
         >
 
@@ -180,6 +148,15 @@
         android:paddingLeft="30dp"
         android:text="我的客服"
         android:layout_marginTop="5dp"
+        />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="退出登录"
+        android:background="@drawable/user_btn"
         />
 
 </LinearLayout>

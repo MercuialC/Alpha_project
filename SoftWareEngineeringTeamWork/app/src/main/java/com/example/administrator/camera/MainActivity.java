@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (tag.equals(HomeFragment.class.getName())) {
                 fragment = HomeFragment.newInstance();
             } else if (tag.equals(UserFragment.class.getName())) {
-                fragment = UserFragment.newInstance();
+                fragment = UserFragment.newInstance(getApplicationContext());
                 Activity activity = fragment.getActivity();
             }
             mFragmentList.add(fragment);
