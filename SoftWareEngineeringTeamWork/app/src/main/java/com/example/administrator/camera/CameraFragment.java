@@ -63,9 +63,13 @@ import static android.app.Activity.RESULT_OK;
  */
 public class CameraFragment extends Fragment {
     private Button btn_camera;
+    private MainActivity mainActivity;
+
     public static final int TAKE_PHOTO = 0;
     public static final int TAKE_AR = 1;
     public String mCurrentPhotoPath;
+
+
 
     private void takeCamera(int num) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -129,10 +133,10 @@ public class CameraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // startActivityForResult(i,RESULT_LOAD_IMAGE);
-                downloadPic("QQ.png");
+//                downloadPic("QQ.png");
 //                downloadPic("wechat.png");
 //                downloadPic("pineapple.png");
-//                downloadPic("test.jpg");
+                downloadPic("test.jpg");
 
                 popupWindow.dismiss();
             }
@@ -160,8 +164,9 @@ public class CameraFragment extends Fragment {
     }
     public CameraFragment() {
     }
-    public static CameraFragment newInstance() {
+    public static CameraFragment newInstance(MainActivity mainActivity) {
         CameraFragment fragment = new CameraFragment();
+        fragment.mainActivity = mainActivity;
         return fragment;
     }
     @Override
@@ -201,36 +206,47 @@ public class CameraFragment extends Fragment {
 
     private final OkHttpClient client = new OkHttpClient();
 
-    private void downloadPic(String fileName) {
-        try {
-            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-            URL url = new URL("http://47.107.236.206:8080/" + fileName);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setReadTimeout(20000);
-            InputStream inStream = conn.getInputStream();
-            //得到图片的二进制数据，以二进制封装得到数据，具有通用性
-            byte[] data = readInputStream(inStream);
-            //new一个文件对象用来保存图片，默认保存当前工程根目录
-            File imageFile = new File(Environment.getExternalStorageDirectory().getPath(), fileName);
-            //创建输出流
-            FileOutputStream outStream = new FileOutputStream(imageFile);
-            //写入数据
-            outStream.write(data);
-            //关闭输出流
-            outStream.close();
+    private void downloadPic(final String fileName) {
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+//                    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
+                    URL url = new URL("http://47.107.236.206:8080/" + fileName);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setReadTimeout(20000);
+                    InputStream inStream = conn.getInputStream();
+                    //得到图片的二进制数据，以二进制封装得到数据，具有通用性
+                    byte[] data = readInputStream(inStream);
+                    //new一个文件对象用来保存图片，默认保存当前工程根目录
+                    File imageFile = new File(Environment.getExternalStorageDirectory().getPath(), fileName);
+                    //创建输出流
+                    FileOutputStream outStream = new FileOutputStream(imageFile);
+                    //写入数据
+                    outStream.write(data);
+                    //关闭输出流
+                    outStream.close();
 
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        } catch (MalformedURLException e1) {
-            e1.printStackTrace();
-        } catch (ProtocolException e1) {
-            e1.printStackTrace();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
+                    mainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.context, "下载完成", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                } catch (FileNotFoundException e1) {
+                    e1.printStackTrace();
+                } catch (MalformedURLException e1) {
+                    e1.printStackTrace();
+                } catch (ProtocolException e1) {
+                    e1.printStackTrace();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
+            }}.start();
     }
 
 @Override

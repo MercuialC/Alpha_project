@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
             transaction.show(fragment);
         } else {
             if (tag.equals(CameraFragment.class.getName())) {
-                fragment = CameraFragment.newInstance();
+                fragment = CameraFragment.newInstance(this);
             } else if (tag.equals(HomeFragment.class.getName())) {
                 fragment = HomeFragment.newInstance();
             } else if (tag.equals(UserFragment.class.getName())) {
