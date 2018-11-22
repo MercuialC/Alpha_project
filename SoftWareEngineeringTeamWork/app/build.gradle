@@ -38,4 +38,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation files('libs/open_sdk_r6019_lite.jar')
+    implementation 'com.squareup.okhttp:okhttp:2.4.0'
+    implementation 'com.squareup.okio:okio:1.5.0'
 }

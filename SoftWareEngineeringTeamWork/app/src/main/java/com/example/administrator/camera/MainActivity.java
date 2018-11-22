@@ -3,6 +3,7 @@ package com.example.administrator.camera;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -43,11 +44,14 @@ public class MainActivity extends AppCompatActivity {
 
     private RelativeLayout rl_un;
 
+    public static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();
+        context = getApplicationContext();
         btncamera = findViewById(R.id.rb_camera);
         btnhome = findViewById(R.id.rb_home);
         btnuser = findViewById(R.id.rb_user);

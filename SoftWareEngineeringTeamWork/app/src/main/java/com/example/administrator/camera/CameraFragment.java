@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
@@ -38,11 +40,20 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.squareup.okhttp.OkHttpClient;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -55,7 +66,6 @@ public class CameraFragment extends Fragment {
     public static final int TAKE_PHOTO = 0;
     public static final int TAKE_AR = 1;
     public String mCurrentPhotoPath;
-
 
     private void takeCamera(int num) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -119,6 +129,11 @@ public class CameraFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // startActivityForResult(i,RESULT_LOAD_IMAGE);
+                downloadPic("QQ.png");
+//                downloadPic("wechat.png");
+//                downloadPic("pineapple.png");
+//                downloadPic("test.jpg");
+
                 popupWindow.dismiss();
             }
         });
@@ -155,6 +170,7 @@ public class CameraFragment extends Fragment {
         if (resultCode == RESULT_OK) {
             if (requestCode == TAKE_PHOTO) {                         //返回结果为拍照上传
 
+//                upload();
                 Toast.makeText(getActivity(),"上传成功！",Toast.LENGTH_SHORT).show();
                  //getActivity().sendBroadcast(data);
             }
@@ -164,12 +180,60 @@ public class CameraFragment extends Fragment {
             }
         }
     }
-//    private void upload()
-//    {
-//        Toast.makeText(getActivity(), "上传成功！",Toast.LENGTH_SHORT).show();
-//    }
 
-        @Override
+
+    public static byte[] readInputStream(InputStream inStream) throws Exception{
+        ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        //创建一个Buffer字符串
+        byte[] buffer = new byte[1024];
+        //每次读取的字符串长度，如果为-1，代表全部读取完毕
+        int len = 0;
+        //使用一个输入流从buffer里把数据读取出来
+        while( (len=inStream.read(buffer)) != -1 ){
+            //用输出流往buffer里写入数据，中间参数代表从哪个位置开始读，len代表读取的长度
+            outStream.write(buffer, 0, len);
+        }
+        //关闭输入流
+        inStream.close();
+        //把outStream里的数据写入内存
+        return outStream.toByteArray();
+    }
+
+    private final OkHttpClient client = new OkHttpClient();
+
+    private void downloadPic(String fileName) {
+        try {
+            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
+            URL url = new URL("http://47.107.236.206:8080/" + fileName);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setReadTimeout(20000);
+            InputStream inStream = conn.getInputStream();
+            //得到图片的二进制数据，以二进制封装得到数据，具有通用性
+            byte[] data = readInputStream(inStream);
+            //new一个文件对象用来保存图片，默认保存当前工程根目录
+            File imageFile = new File(Environment.getExternalStorageDirectory().getPath(), fileName);
+            //创建输出流
+            FileOutputStream outStream = new FileOutputStream(imageFile);
+            //写入数据
+            outStream.write(data);
+            //关闭输出流
+            outStream.close();
+
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        } catch (ProtocolException e1) {
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+@Override
         public View onCreateView (LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
             return inflater.inflate(R.layout.fragment_camera, container, false);
