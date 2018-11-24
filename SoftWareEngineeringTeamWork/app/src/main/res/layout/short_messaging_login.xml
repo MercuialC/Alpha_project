@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/loginline1"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/applogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/loginline1"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp">
+
+
+        <EditText
+            android:id="@+id/tel_text"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="手机号"
+            android:inputType="phone" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tel_text"
+            android:layout_alignStart="@+id/tel_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="17dp"
+            android:background="#1E90FF" />
+
+        <EditText
+            android:id="@+id/code_text"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tel_text"
+            android:layout_alignStart="@+id/tel_text"
+            android:layout_marginTop="40dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="验证码"
+            android:inputType="textPersonName" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="140dp"
+            android:layout_height="1dp"
+            android:layout_below="@+id/code_text"
+            android:layout_alignStart="@+id/tel_text"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="17dp"
+            android:background="#1E90FF" />
+
+        <Button
+            android:id="@+id/sendcode_btn"
+            android:layout_width="140dp"
+            android:layout_height="45dp"
+            android:layout_alignEnd="@+id/view1"
+            android:layout_alignBottom="@+id/view2"
+            android:background="@drawable/btnshape"
+            android:text="点击获取验证码"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="300dp"
+            android:layout_height="45dp"
+            android:layout_below="@+id/view2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/btnshape"
+            android:text="登录"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</RelativeLayout>
+
