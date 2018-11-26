@@ -2,6 +2,7 @@ package com.example.administrator.camera;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
@@ -69,7 +70,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         btn_forget.setOnClickListener(this);
         btn_register.setOnClickListener(this);
     }
-
+    private void setDrawleft(EditText editText,int res)
+    {
+        Drawable drawable=getResources().getDrawable(res);
+        drawable.setBounds(0,0,35,35);
+        editText.setCompoundDrawables(drawable,null,null,null);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +84,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         getSupportActionBar().hide();
 
+
         initUI();
+        setDrawleft(et_userName,R.drawable.user);
+        setDrawleft(et_userPwd,R.drawable.password);
         mTencent = Tencent.createInstance(APP_ID, Login.this.getApplicationContext());
 
     }
