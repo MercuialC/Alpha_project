@@ -62,9 +62,11 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CameraFragment extends Fragment {
+public class CameraFragment extends Fragment implements View.OnClickListener {
+
     private Button btn_camera;
     private MainActivity mainActivity;
+    private Button btn_his;
 
     public static final int TAKE_PHOTO = 0;
     public static final int TAKE_AR = 1;
@@ -291,7 +293,11 @@ public class CameraFragment extends Fragment {
 @Override
         public View onCreateView (LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_camera, container, false);
+            View view = inflater.inflate(R.layout.fragment_camera, container, false);
+            btn_his = view.findViewById(R.id.btn_his);
+            btn_his.setOnClickListener(this);
+
+            return view;
         }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -303,5 +309,17 @@ public class CameraFragment extends Fragment {
                 showPopueWindow();
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId())
+        {
+            case R.id.btn_his:
+                Intent intent = new Intent(mainActivity, history.class);
+                startActivity(intent);
+
+                break;
+        }
     }
 }

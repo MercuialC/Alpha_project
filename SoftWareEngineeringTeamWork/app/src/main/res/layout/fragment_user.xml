@@ -59,7 +59,7 @@
             android:layout_toRightOf="@id/iv_userHead"
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:text="userName"
+            android:text="未登录"
             />
 
         <Button
@@ -73,7 +73,7 @@
             android:layout_toRightOf="@+id/iv_userHead"
             android:gravity="left|center_vertical"
             android:background="@android:color/transparent"
-            android:text="个人信息"
+            android:text="登录/注册"
             android:drawableRight="@drawable/rightarow"
             android:drawablePadding="10dp"/>
 
