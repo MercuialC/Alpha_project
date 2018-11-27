@@ -39,7 +39,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".myCustomerServices" />
-        <activity android:name=".history"></activity>
+        <activity android:name=".HistoryPage"></activity>
     </application>
 
 </manifest>

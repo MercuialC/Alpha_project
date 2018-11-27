@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.administrator.camera.history"
+    tools:context="com.example.administrator.camera.HistoryPage"
     android:orientation="vertical"
     >
 
@@ -23,6 +23,19 @@
         app:layout_constraintTop_toTopOf="parent"
         />
 
+    <Button
+        android:id="@+id/btn_clear"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -39,8 +52,8 @@
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:text="最近3天"
@@ -49,62 +62,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="490dp"
+    <ListView
+        android:id="@+id/lv_his"
+        android:layout_width="382dp"
+        android:layout_height="470dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        android:orientation="vertical"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@android:color/white"
-            android:layout_marginBottom="10dp">
-            <ImageView
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@mipmap/ic_launcher" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="贡茶"
-                android:textSize="20sp"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@android:color/white"
-            android:layout_marginBottom="10dp">
-            <ImageView
-                android:layout_width="106dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:background="@mipmap/ic_launcher" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="贡茶"
-                android:textSize="20sp"
-                android:paddingLeft="20dp"/>
-        </LinearLayout>
-
-
-    </LinearLayout>
+    </ListView>
 
 </android.support.constraint.ConstraintLayout>
