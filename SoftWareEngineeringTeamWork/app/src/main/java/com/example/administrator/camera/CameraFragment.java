@@ -94,7 +94,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         //点击外部popueWindow消失
         popupWindow.setBackgroundDrawable(new BitmapDrawable());
         popupWindow.setOutsideTouchable(true);
-
         bt_camera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,8 +118,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 //                downloadPic("wechat.png");
 //                downloadPic("pineapple.png");
 //                downloadPic("test.jpg");
-                uploadPic("tem_picture.jpg");
-
+                //uploadPic("tem_picture.jpg");
+                Intent intent = new Intent(getActivity(),diy.class);
+                startActivity(intent);
                 popupWindow.dismiss();
             }
         });
@@ -164,7 +164,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             }
             else if(requestCode == TAKE_AR)                            //返回结果为AR扫描
             {
-
             }
         }
     }
