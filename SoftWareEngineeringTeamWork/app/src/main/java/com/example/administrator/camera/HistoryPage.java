@@ -115,9 +115,9 @@ public class HistoryPage extends AppCompatActivity implements View.OnClickListen
             tv.setText(lists.get(position).getText());
 
             String picPath = lists.get(position).getPicPath();
-            File file = new File(picPath);
+ //           File file = new File(picPath);
 //            用于测试
-//            File file = new File(Environment.getExternalStorageDirectory().getPath(),"bee.png");
+            File file = new File(Environment.getExternalStorageDirectory().getPath(),"bee.png");
             if(file.exists()) {
                 ImageView iv = view.findViewById(R.id.iv_his);
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());

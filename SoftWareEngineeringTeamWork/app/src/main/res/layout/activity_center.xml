@@ -5,7 +5,7 @@
     <RadioGroup
         android:id="@+id/rg_topmain"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:background="#ff7a00"
         android:orientation="horizontal"
         android:paddingTop="7dp">
@@ -17,7 +17,7 @@
             android:layout_weight="0.3"
             android:background="@android:color/transparent"
             android:button="@null"
-            android:gravity="center"
+            android:gravity="center_vertical"
             />
         <RadioButton
             android:id="@+id/rb_atten"
@@ -27,7 +27,7 @@
             android:background="@android:color/transparent"
             android:button="@null"
             android:checked="true"
-            android:gravity="center"
+            android:gravity="center_vertical|center"
             android:text="关注"
             android:textSize="20sp"
             android:textColor="#fff"
@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:button="@null"
-            android:gravity="center"
+            android:gravity="center_vertical|center"
             android:text="推荐"
             android:textSize="20sp"
             android:textColor="#fff"

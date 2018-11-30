@@ -168,7 +168,7 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            Toast.makeText(diy.this,"计时中！",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(diy.this,"计时中！",Toast.LENGTH_SHORT).show();
             if (mCurrentTimer > 0) {
                 mTvCountDown.setText(mCurrentTimer + "");
                 mCurrentTimer--;
