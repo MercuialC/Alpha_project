@@ -95,6 +95,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         btn_info.setOnClickListener(this);
         btn_activity.setOnClickListener(this);
         btn_cust.setOnClickListener(this);
+        btn_activity.setOnClickListener(this);
+        btn_logout.setVisibility(View.INVISIBLE);
 
         setDrawright(btn_userInfo,R.drawable.rightarow);
         setDraw(btn_coll,R.drawable.collection,R.drawable.rightarow);
@@ -102,8 +104,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         setDraw(btn_info,R.drawable.info,R.drawable.rightarow);
         setDraw(btn_activity,R.drawable.activity,R.drawable.rightarow);
         setDraw(btn_cust,R.drawable.customerservice,R.drawable.rightarow);
-
-
 
         return view;
     }
@@ -128,15 +128,23 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_userInfo:
                 if(hasLogined) {
                     System.out.println("进入用户信息详情页");
+                    Intent intent = new Intent(getActivity(),wodexinxiActivity.class);
+                    startActivity(intent);
+                    break;
                 }else{
                     hasLogined = true;
-                    Intent intent = new Intent(getActivity(), Login.class);
+                    Intent intent = new Intent(getActivity(),Login.class);
+                    //startActivity(intent);
                     startActivityForResult(intent, RequestCode_Login);
                 }
                 break;
             case R.id.btn_logout:
                 hasLogined = false;
                 updateUserInfoBolck();
+                break;
+            case R.id.btn_activity:
+                Intent intent = new Intent(getActivity(),ActivityCenter.class);
+                startActivity(intent);
                 break;
         }
     }
