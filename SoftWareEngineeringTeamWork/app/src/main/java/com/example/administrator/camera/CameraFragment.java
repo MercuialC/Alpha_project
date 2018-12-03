@@ -21,8 +21,11 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
+import okhttp3.Call;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,6 +38,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
+import static com.example.administrator.camera.costom_layouts.Httpun.postPicture;
 import static android.app.Activity.RESULT_OK;
 
 
@@ -68,7 +72,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private File createImageFile() {
         File image = null;
         image = new File(Environment.getExternalStorageDirectory()
-                            .getAbsolutePath(),generateFileName());
+                .getAbsolutePath(),generateFileName());
 
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
@@ -159,8 +163,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             if (requestCode == TAKE_PHOTO) {                         //返回结果为拍照上传
 
 //                upload();
+                uploadPic(mCurrentPhotoPath);
                 Toast.makeText(getActivity(),"上传成功！",Toast.LENGTH_SHORT).show();
-                 //getActivity().sendBroadcast(data);
+                //getActivity().sendBroadcast(data);
             }
             else if(requestCode == TAKE_AR)                            //返回结果为AR扫描
             {
@@ -191,38 +196,34 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     private void uploadPic(final String fileName)
     {
-//        // mImgUrls为存放图片的url集合
-//        MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-//        for (int i = 0; i <mImgUrls.size() ; i++) {
-//            File f=new File(mImgUrls.get(i));
-//            if (f!=null) {
-//                builder.addFormDataPart("img", f.getName(), RequestBody.create(MEDIA_TYPE_PNG, f));
-//            }
-//        }
-//
-//        MultipartBody requestBody = builder.build();
-//        //构建请求
-//        Request request = new Request.Builder()
-//                .url(Constant.BASE_URL)//地址
-//                .post(requestBody)//添加请求体
-//                .build();
-//
-//        client.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//                System.out.println("上传失败:e.getLocalizedMessage() = " + e.getLocalizedMessage());
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//
-//                System.out.println("上传照片成功：response = " + response.body().string());
-//                ToastCustom.makeText(PictureListActivity.this, "上传成功", Toast.LENGTH_LONG).show();
-//
-//
-//            }
-//        });
+//           public static void postPicture(String url, File file, okhttp3.Callback callback)
+
+        File flie_img =new File(mCurrentPhotoPath);
+
+        postPicture("http://192.168.43.288:8080/OkHttpTest/uploadFile.do",flie_img, new okhttp3.Callback(){
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.context, "o", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.context, "ok", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 
     private void downloadPic(final String fileName) {
@@ -268,15 +269,15 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             }}.start();
     }
 
-@Override
-        public View onCreateView (LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_camera, container, false);
-            btn_his = view.findViewById(R.id.btn_his);
-            btn_his.setOnClickListener(this);
+    @Override
+    public View onCreateView (LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_camera, container, false);
+        btn_his = view.findViewById(R.id.btn_his);
+        btn_his.setOnClickListener(this);
 
-            return view;
-        }
+        return view;
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

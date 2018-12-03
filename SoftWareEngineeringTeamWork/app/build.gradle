@@ -43,7 +43,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation files('libs/open_sdk_r6019_lite.jar')
-    implementation 'com.squareup.okhttp:okhttp:2.4.0'
-    implementation 'com.squareup.okio:okio:1.5.0'
+
     api name: 'SMSSDK-3.0.0', ext: 'aar'
+    api 'com.squareup.okhttp3:okhttp:3.8.0'
 }
