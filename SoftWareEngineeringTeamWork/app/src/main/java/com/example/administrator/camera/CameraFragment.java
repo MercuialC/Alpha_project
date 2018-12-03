@@ -200,7 +200,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
         File flie_img =new File(mCurrentPhotoPath);
 
-        postPicture("http://192.168.43.288:8080/OkHttpTest/uploadFile.do",flie_img, new okhttp3.Callback(){
+        postPicture("http://192.168.43.72:8080/OkHttpTest/uploadFile.do",flie_img, new okhttp3.Callback(){
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
