@@ -10,10 +10,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.app.Fragment;
-import android.renderscript.ScriptGroup;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,21 +27,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.administrator.camera.costom_layouts.Httpun.postPicture;
 import static android.app.Activity.RESULT_OK;
@@ -57,7 +50,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private Button btn_camera;
     private MainActivity mainActivity;
     private Button btn_his;
-    private List<String> scanResult;
 
     public static final int TAKE_PHOTO = 0;
     public static final int TAKE_AR = 1;
@@ -130,6 +122,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 //                downloadPic("wechat.png");
 //                downloadPic("pineapple.png");
 //                downloadPic("test.jpg");
+                //uploadPic("tem_picture.jpg");
                 Intent intent = new Intent(getActivity(),diy.class);
                 startActivity(intent);
                 popupWindow.dismiss();
@@ -168,10 +161,11 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == TAKE_PHOTO) {                         //返回结果为拍照上传
-                Toast.makeText(getActivity(),"拍照完成",Toast.LENGTH_SHORT).show();
+
+//                upload();
+                uploadPic(mCurrentPhotoPath);
+                Toast.makeText(getActivity(),"上传成功！",Toast.LENGTH_SHORT).show();
                 //getActivity().sendBroadcast(data);
-//                uploadPic(mCurrentPhotoPath);
-                downloadCalcResult();
             }
             else if(requestCode == TAKE_AR)                            //返回结果为AR扫描
             {
@@ -202,83 +196,34 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     private void uploadPic(final String fileName)
     {
-        File flie_img = new File(mCurrentPhotoPath);
+//           public static void postPicture(String url, File file, okhttp3.Callback callback)
+
+        File flie_img =new File(mCurrentPhotoPath);
+
         postPicture("http://192.168.43.288:8080/OkHttpTest/uploadFile.do",flie_img, new okhttp3.Callback(){
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.context, "fail", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.context, "o", Toast.LENGTH_SHORT).show();
                     }
                 });
 
             }
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.context, "上传成功", Toast.LENGTH_SHORT).show();
-//                        downloadCalcResult();
+                        Toast.makeText(MainActivity.context, "ok", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
-    }
-
-
-
-    private void downloadCalcResult(){
-        System.out.println("1");
-        if(scanResult == null)
-            scanResult = new ArrayList<String>();
-        else
-            scanResult.clear();
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    System.out.println("2");
-                    URL url = new URL("http://192.168.43.228:8080/result.txt");
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setReadTimeout(20000);
-                    if(true)
-                    {
-                        System.out.println("3");
-//                        Thread.sleep(200);
-                        if(connection.getResponseCode() == 200)
-                        {
-                            System.out.println("4");
-                            InputStream is = connection.getInputStream();
-
-                            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                            String thisLine;
-                            if ((thisLine = br.readLine()) != null) {
-                                scanResult.add(thisLine);
-                            }
-                            System.out.println("5");
-                            br.close();
-
-                            final String asd = thisLine;
-
-                            is.close();
-                            mainActivity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(MainActivity.context, "下载结果完成" + asd, Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            //break;
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }}.start();
-
     }
 
     private void downloadPic(final String fileName) {
@@ -343,7 +288,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 showPopueWindow();
             }
         });
-
     }
 
     @Override
