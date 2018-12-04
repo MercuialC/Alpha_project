@@ -87,7 +87,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     }
 
     public static String generateFileName() {
-        String imageFileName ="tem_picture.jpg";
+        String imageFileName ="rocket.jpg";
         return imageFileName;
     }
 
@@ -207,7 +207,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             public void run() {
 
                 File flie_img = new File(mCurrentPhotoPath);
-                postPicture("http://192.168.43.72:8080/OkHttpTest/uploadFile.do", flie_img, new okhttp3.Callback() {
+                postPicture(MainActivity.serverURL +"OkHttpTest/uploadFile.do", flie_img, new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
@@ -238,7 +238,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
 
     private void downloadCalcResult(){
-        System.out.println("1");
         if(scanResult == null)
             scanResult = new ArrayList<String>();
         else
@@ -249,8 +248,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 try {
                     while (true)
                     {
-                        System.out.println("2");
-                        URL url = new URL("http://192.168.43.72:8080/result.txt");
+                        URL url = new URL(MainActivity.serverURL + "result.txt");
                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setRequestMethod("GET");
                         connection.setReadTimeout(20000);
@@ -259,7 +257,6 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                         Thread.sleep(200);
                         if(connection.getResponseCode() == 200)
                         {
-                            System.out.println("4");
                             InputStream is = connection.getInputStream();
 
                             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -267,18 +264,20 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                             if ((thisLine = br.readLine()) != null) {
                                 scanResult.add(thisLine);
                             }
-                            System.out.println("5");
                             br.close();
 
-                            final String asd = thisLine;
+                            final String tmp = thisLine;
 
                             is.close();
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(MainActivity.context, "下载结果完成" + asd, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.context, "下载结果完成" + tmp, Toast.LENGTH_LONG).show();
                                 }
                             });
+                            //--------------------------------------------------------------
+                            downloadOK("ok");
+                            //--------------------------------------------------------------
                             break;
                         }
                     }
@@ -289,48 +288,82 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void downloadPic(final String fileName) {
+    private void downloadOK(final String fileName) {
         new Thread(){
             @Override
             public void run() {
-                try {
-//                    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
-                    URL url = new URL("http://47.107.236.72:8080/" + fileName);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.setReadTimeout(20000);
-                    InputStream inStream = conn.getInputStream();
-                    //得到图片的二进制数据，以二进制封装得到数据，具有通用性
-                    byte[] data = readInputStream(inStream);
-                    //new一个文件对象用来保存图片，默认保存当前工程根目录
-                    File imageFile = new File(Environment.getExternalStorageDirectory().getPath(), fileName);
-                    //创建输出流
-                    FileOutputStream outStream = new FileOutputStream(imageFile);
-                    //写入数据
-                    outStream.write(data);
-                    //关闭输出流
-                    outStream.close();
 
-                    mainActivity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MainActivity.context, "下载完成", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                File flie_img = new File(mCurrentPhotoPath);
+                postPicture(MainActivity.serverURL +"OkHttpTest/uploadFile.do", flie_img, new okhttp3.Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.context, "fail", Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
-                } catch (FileNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
-                } catch (ProtocolException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.context, "本次识别完成", Toast.LENGTH_SHORT).show();
+                                downloadCalcResult();
+                            }
+                        });
+                    }
+                });
             }}.start();
+
     }
+
+//    private void downloadPic(final String fileName) {
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                try {
+////                    StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
+//                    URL url = new URL("http://47.107.236.72:8080/" + fileName);
+//                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//                    conn.setRequestMethod("GET");
+//                    conn.setReadTimeout(20000);
+//                    InputStream inStream = conn.getInputStream();
+//                    //得到图片的二进制数据，以二进制封装得到数据，具有通用性
+//                    byte[] data = readInputStream(inStream);
+//                    //new一个文件对象用来保存图片，默认保存当前工程根目录
+//                    File imageFile = new File(Environment.getExternalStorageDirectory().getPath(), fileName);
+//                    //创建输出流
+//                    FileOutputStream outStream = new FileOutputStream(imageFile);
+//                    //写入数据
+//                    outStream.write(data);
+//                    //关闭输出流
+//                    outStream.close();
+//
+//                    mainActivity.runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(MainActivity.context, "下载完成", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//                } catch (FileNotFoundException e1) {
+//                    e1.printStackTrace();
+//                } catch (MalformedURLException e1) {
+//                    e1.printStackTrace();
+//                } catch (ProtocolException e1) {
+//                    e1.printStackTrace();
+//                } catch (IOException e1) {
+//                    e1.printStackTrace();
+//                } catch (Exception e1) {
+//                    e1.printStackTrace();
+//                }
+//            }}.start();
+//    }
 
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,

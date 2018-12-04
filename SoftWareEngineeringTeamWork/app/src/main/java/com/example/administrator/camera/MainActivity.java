@@ -35,6 +35,9 @@ import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    public final static String serverURL= "http://192.168.43.228:8080/";
+
     private Button btn_camera;
     private RadioButton btncamera;
     private RadioButton btnhome;
