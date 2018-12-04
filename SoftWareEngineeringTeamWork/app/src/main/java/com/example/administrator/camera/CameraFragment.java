@@ -235,13 +235,12 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
-
     private void downloadCalcResult(){
         if(scanResult == null)
             scanResult = new ArrayList<String>();
         else
             scanResult.clear();
+
         new Thread(){
             @Override
             public void run() {
@@ -312,8 +311,8 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.context, "本次识别完成", Toast.LENGTH_SHORT).show();
-                                downloadCalcResult();
+                                Toast.makeText(MainActivity.context, "本次识别完成\n\n", Toast.LENGTH_SHORT).show();
+
                             }
                         });
                     }
