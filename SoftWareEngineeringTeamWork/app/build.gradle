@@ -44,8 +44,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation files('libs/open_sdk_r6019_lite.jar')
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-
-
     api name: 'SMSSDK-3.0.0', ext: 'aar'
     api 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation files('libs/Android_Map3D_SDK_V6.5.0_20180930.jar')
 }
