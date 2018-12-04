@@ -32,6 +32,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private Button btn_info;
     private Button btn_activity;
     private  Button btn_cust;
+    private Button btn_setting;
     private Button btn_userInfo;
     private Button btn_logout;
     private ImageView iv_userHead;
@@ -87,6 +88,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         btn_logout = view.findViewById(R.id.btn_logout);
         iv_userHead = view.findViewById(R.id.iv_userHead);
         tv_userName = view.findViewById(R.id.tv_userName);
+        btn_setting = view.findViewById(R.id.btn_setting);
 
         btn_userInfo.setOnClickListener(this);
         btn_logout.setOnClickListener(this);
@@ -96,6 +98,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         btn_activity.setOnClickListener(this);
         btn_cust.setOnClickListener(this);
         btn_activity.setOnClickListener(this);
+        btn_setting.setOnClickListener(this);
+
         btn_logout.setVisibility(View.INVISIBLE);
 
         setDrawright(btn_userInfo,R.drawable.rightarow);
@@ -145,6 +149,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_activity:
                 Intent intent = new Intent(getActivity(),ActivityCenter.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_setting:
+                Intent intent1 = new Intent(getActivity(),SettingActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
