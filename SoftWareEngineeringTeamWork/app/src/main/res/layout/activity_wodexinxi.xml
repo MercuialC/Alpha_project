@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ebebeb"
-    tools:context="com.example.administrator.camera.wodexinxiActivity">
+    tools:context="com.rocketboys100.playfuzhou.camera.com.rocketboys100.playfuzhou.wodexinxiActivity">
     <LinearLayout
         android:id="@+id/top"
         android:layout_width="match_parent"
@@ -49,51 +49,51 @@
                 android:textSize="40dp"
                 android:background="@drawable/user_btn"/>
 
-            <com.example.administrator.camera.costom_layouts.RL_text
+            <com.rocketboys100.playfuzhou.costom_layouts.RL_text
                 android:id="@+id/btn_nizi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button"
                 android:paddingVertical="25dp"
                 android:background="@drawable/user_btn"
-                ></com.example.administrator.camera.costom_layouts.RL_text>
+                ></com.rocketboys100.playfuzhou.costom_layouts.RL_text>
 
-            <com.example.administrator.camera.costom_layouts.RL_text
+            <com.rocketboys100.playfuzhou.costom_layouts.RL_text
                 android:id="@+id/btn_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button"
                 android:paddingVertical="25dp"
                 android:background="@drawable/user_btn"
-                ></com.example.administrator.camera.costom_layouts.RL_text>
+                ></com.rocketboys100.playfuzhou.costom_layouts.RL_text>
 
-            <com.example.administrator.camera.costom_layouts.RL_text
+            <com.rocketboys100.playfuzhou.costom_layouts.RL_text
                 android:id="@+id/btn_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button"
                 android:paddingVertical="25dp"
                 android:background="@drawable/user_btn"
-                ></com.example.administrator.camera.costom_layouts.RL_text>
+                ></com.rocketboys100.playfuzhou.costom_layouts.RL_text>
 
-            <com.example.administrator.camera.costom_layouts.UD_text
+            <com.rocketboys100.playfuzhou.costom_layouts.UD_text
                 android:id="@+id/btn_motto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button"
                 android:paddingVertical="25dp"
                 android:background="@drawable/user_btn"
-                ></com.example.administrator.camera.costom_layouts.UD_text>
+                ></com.rocketboys100.playfuzhou.costom_layouts.UD_text>
 
 
-            <com.example.administrator.camera.costom_layouts.UD_text
+            <com.rocketboys100.playfuzhou.costom_layouts.UD_text
                 android:id="@+id/btn_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Base.Widget.AppCompat.Button"
                 android:paddingVertical="25dp"
                 android:background="@drawable/user_btn"
-                ></com.example.administrator.camera.costom_layouts.UD_text>
+                ></com.rocketboys100.playfuzhou.costom_layouts.UD_text>
         </LinearLayout>
     </ScrollView>
 </RelativeLayout>

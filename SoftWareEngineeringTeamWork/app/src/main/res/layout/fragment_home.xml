@@ -3,17 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context="com.rocketboys100.playfuzhou.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#3C3C3C"
-        android:gravity="center"
-        android:text="首页"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
 
     <Button
         android:id="@+id/btn_map"

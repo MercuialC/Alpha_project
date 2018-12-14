@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.administrator.camera">
+    package="com.rocketboys100.playfuzhou">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -13,6 +13,13 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
 
     <application
         android:allowBackup="true"
@@ -47,15 +54,20 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".myCustomerServices" />
-        <activity android:name=".HistoryPage"></activity>
+        <activity android:name=".HistoryPage" />
         <activity android:name=".ActivityCenter" />
         <activity android:name=".wodexinxiActivity" />
         <activity android:name=".diy" />
-        <activity android:name=".SettingActivity"></activity>
+        <activity android:name=".SettingActivity" />
 
+
+        <activity
+            android:name=".gaodemap"
+            android:label="@string/title_activity_gaodemap"></activity>
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="9799a2a9f097e8d91df8fa606f40bfa7"/>
+            android:value="9799a2a9f097e8d91df8fa606f40bfa7" />
+        <service android:name="com.amap.api.location.APSService"/>
 
     </application>
 

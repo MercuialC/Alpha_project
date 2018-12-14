@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.administrator.camera.myCustomerServices"
+    tools:context="com.rocketboys100.playfuzhou.camera.com.rocketboys100.playfuzhou.myCustomerServices"
     >
 
 

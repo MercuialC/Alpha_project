@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#eee"
     android:orientation="vertical"
-    tools:context="com.example.administrator.camera.SettingActivity">
+    tools:context="com.rocketboys100.playfuzhou.camera.com.rocketboys100.playfuzhou.SettingActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
