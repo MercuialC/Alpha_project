@@ -54,6 +54,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private String userName;
     private String userPwd;
     private Bitmap userHead;
+    private String city;
+    private String gender;
 
     public static final int RequestCode_Login = 0;
 
@@ -147,6 +149,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         intent.putExtra("userName", userName);
         intent.putExtra("userOpenID", userOpenID);
         intent.putExtra("userHeadPath", path);
+        intent.putExtra("userGender", gender);
+        intent.putExtra("userCity", city);
         setResult(RequestCode_Login,intent);
         finish();
     }
@@ -175,7 +179,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     public void onComplete(Object response) {
                         Log.e(TAG, "登录成功" + response.toString());
                         JSONObject jsonFile = (JSONObject) response;
+//                        System.out.println(jsonFile.toString());
                         try {
+                            city = jsonFile.getString("city");
+                            gender = jsonFile.getString("gender");
                             userName = jsonFile.getString("nickname");
                             String userHeadURL = jsonFile.getString("figureurl_qq_2");
                             URL url = new URL(userHeadURL);

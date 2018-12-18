@@ -1,99 +1,243 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ebebeb"
-    tools:context="com.rocketboys100.playfuzhou.camera.com.rocketboys100.playfuzhou.wodexinxiActivity">
+    tools:context="com.rocketboys100.playfuzhou.wodexinxiActivity">
+
     <LinearLayout
-        android:id="@+id/top"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
-        <RadioButton
-            android:id="@+id/rb_return_info"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4"
-            android:background="#3C3C3C"
-            android:button="@null"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_weight="0.6"
-            android:background="#3C3C3C"
-            android:gravity="left|center"
-            android:text="我的信息"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
-    </LinearLayout>
-    <ScrollView
-        android:layout_below="@+id/top"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+            android:background="#ebebeb">
+
+            <Button
+                android:id="@+id/btn_return"
+                android:layout_width="33dp"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/leftarrowblack" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="131dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="129dp"
+                android:gravity="center_vertical"
+                android:text="我的信息"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <Button
-                android:id="@+id/btn_avatar"
-                android:layout_width="match_parent"
+            android:background="#ffffff">
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/user"
-                android:gravity="left"
-                android:paddingVertical="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="32dp"
                 android:text="头像"
-                android:textAlignment="gravity"
-                android:textSize="40dp"
-                android:background="@drawable/user_btn"/>
+                android:textColor="#000000"
+                android:textSize="24sp" />
 
-            <com.rocketboys100.playfuzhou.costom_layouts.RL_text
-                android:id="@+id/btn_nizi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button"
-                android:paddingVertical="25dp"
-                android:background="@drawable/user_btn"
-                ></com.rocketboys100.playfuzhou.costom_layouts.RL_text>
+            <ImageView
+                android:id="@+id/iv_myhead"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="53dp"
+                android:layout_marginBottom="15dp"
+                android:background="#000000" />
 
-            <com.rocketboys100.playfuzhou.costom_layouts.RL_text
-                android:id="@+id/btn_account"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button"
-                android:paddingVertical="25dp"
-                android:background="@drawable/user_btn"
-                ></com.rocketboys100.playfuzhou.costom_layouts.RL_text>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignTop="@+id/iv_myhead"
+                android:layout_alignBottom="@+id/iv_myhead"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="39dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="37dp"
+                android:background="@drawable/rightarrowgray" />
 
-            <com.rocketboys100.playfuzhou.costom_layouts.RL_text
-                android:id="@+id/btn_gender"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button"
-                android:paddingVertical="25dp"
-                android:background="@drawable/user_btn"
-                ></com.rocketboys100.playfuzhou.costom_layouts.RL_text>
+        </RelativeLayout>
 
-            <com.rocketboys100.playfuzhou.costom_layouts.UD_text
-                android:id="@+id/btn_motto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button"
-                android:paddingVertical="25dp"
-                android:background="@drawable/user_btn"
-                ></com.rocketboys100.playfuzhou.costom_layouts.UD_text>
+        <RelativeLayout
+            android:id="@+id/rl_name"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="3dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="center_vertical"
+                android:text="昵称"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_myname"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="65dp"
+                android:gravity="center_vertical"
+                android:text="null"
+                android:textColor="#808080"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignBottom="@+id/tv_myname"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/rightarrowgray" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_gender"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="3dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="0dp"
+                android:gravity="center_vertical"
+                android:text="性别"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_mygender"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="65dp"
+                android:gravity="center_vertical"
+                android:text="null"
+                android:textColor="#808080"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignBottom="@+id/tv_mygender"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/rightarrowgray" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_city"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="3dp"
+            android:background="#ffffff">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="0dp"
+                android:gravity="center_vertical"
+                android:text="城市"
+                android:textColor="#000000"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_mycity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="45dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="65dp"
+                android:gravity="center_vertical"
+                android:text="null"
+                android:textColor="#808080"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignBottom="@+id/tv_mycity"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="7dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/rightarrowgray" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</ScrollView>
 
 
-            <com.rocketboys100.playfuzhou.costom_layouts.UD_text
-                android:id="@+id/btn_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                style="@style/Base.Widget.AppCompat.Button"
-                android:paddingVertical="25dp"
-                android:background="@drawable/user_btn"
-                ></com.rocketboys100.playfuzhou.costom_layouts.UD_text>
-        </LinearLayout>
-    </ScrollView>
-</RelativeLayout>
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--xmlns:tools="http://schemas.android.com/tools"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:background="#ebebeb"--><!--tools:context="com.rocketboys100.playfuzhou.wodexinxiActivity">--><!--<LinearLayout--><!--android:id="@+id/top"--><!--android:layout_width="match_parent"--><!--android:layout_height="50dp">--><!--<RadioButton--><!--android:id="@+id/rb_return_info"--><!--android:layout_width="0dp"--><!--android:layout_height="match_parent"--><!--android:layout_weight="0.4"--><!--android:background="#3C3C3C"--><!--android:button="@null"--><!--android:gravity="center"--><!--/>--><!--<TextView--><!--android:layout_width="0dp"--><!--android:layout_height="50dp"--><!--android:layout_weight="0.6"--><!--android:background="#3C3C3C"--><!--android:gravity="left|center"--><!--android:text="我的信息"--><!--android:textColor="#FFFFFF"--><!--android:textSize="20sp" />--><!--</LinearLayout>--><!--<ScrollView--><!--android:layout_below="@+id/top"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent">--><!--<LinearLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:orientation="vertical">-->
+
+    <!--<Button--><!--android:id="@+id/btn_avatar"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:background="@drawable/user_btn"--><!--android:drawableRight="@drawable/user"--><!--android:gravity="left"--><!--android:paddingVertical="30dp"--><!--android:text="头像"--><!--android:textAlignment="gravity"--><!--android:textSize="40dp" />-->
+
+    <!--<com.rocketboys100.playfuzhou.costom_layouts.RL_text--><!--android:id="@+id/btn_nizi"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--style="@style/Base.Widget.AppCompat.Button"--><!--android:paddingVertical="25dp"--><!--android:background="@drawable/user_btn"--><!--&gt;</com.rocketboys100.playfuzhou.costom_layouts.RL_text>-->
+
+    <!--<com.rocketboys100.playfuzhou.costom_layouts.RL_text--><!--android:id="@+id/btn_account"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--style="@style/Base.Widget.AppCompat.Button"--><!--android:paddingVertical="25dp"--><!--android:background="@drawable/user_btn"--><!--&gt;</com.rocketboys100.playfuzhou.costom_layouts.RL_text>-->
+
+    <!--<com.rocketboys100.playfuzhou.costom_layouts.RL_text--><!--android:id="@+id/btn_gender"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--style="@style/Base.Widget.AppCompat.Button"--><!--android:paddingVertical="25dp"--><!--android:background="@drawable/user_btn"--><!--&gt;</com.rocketboys100.playfuzhou.costom_layouts.RL_text>-->
+
+    <!--<com.rocketboys100.playfuzhou.costom_layouts.UD_text--><!--android:id="@+id/btn_motto"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--style="@style/Base.Widget.AppCompat.Button"--><!--android:paddingVertical="25dp"--><!--android:background="@drawable/user_btn"--><!--&gt;</com.rocketboys100.playfuzhou.costom_layouts.UD_text>-->
+
+
+    <!--<com.rocketboys100.playfuzhou.costom_layouts.UD_text--><!--android:id="@+id/btn_location"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--style="@style/Base.Widget.AppCompat.Button"--><!--android:paddingVertical="25dp"--><!--android:background="@drawable/user_btn"--><!--&gt;</com.rocketboys100.playfuzhou.costom_layouts.UD_text>--><!--</LinearLayout>--><!--</ScrollView>--><!--</RelativeLayout>-->

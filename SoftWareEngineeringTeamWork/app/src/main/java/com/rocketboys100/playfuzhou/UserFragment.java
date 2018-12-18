@@ -36,9 +36,12 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private ImageView iv_userHead;
     private TextView tv_userName;
     private static Context mContext;
-    private String userName;
-    private String userOpenID;
-    private Bitmap userHead;
+    public static String userName;
+    public static String userOpenID;
+    public static Bitmap userHead;
+    public static String userHeadPath;
+    public static String userCity;
+    public static String userGender;
     private boolean hasLogined = false;
     public static final int RequestCode_Login = 0;
 
@@ -136,7 +139,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 }else{
                     hasLogined = true;
                     Intent intent = new Intent(getActivity(),Login.class);
-                    //startActivity(intent);
                     startActivityForResult(intent, RequestCode_Login);
                 }
                 break;
@@ -161,7 +163,9 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         {
             userName = data.getStringExtra("userName");
             userOpenID = data.getStringExtra("userOpenID");
-            String userHeadPath = data.getStringExtra("userHeadPath");
+            userHeadPath = data.getStringExtra("userHeadPath");
+            userCity = data.getStringExtra("userCity");
+            userGender = data.getStringExtra("userGender");
             userHead = BitmapFactory.decodeFile(userHeadPath);
             updateUserInfoBolck();
         }

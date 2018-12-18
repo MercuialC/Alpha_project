@@ -8,6 +8,8 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -53,11 +55,12 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             initEvent();
         }
     }
-    @Override
-    protected void onPause() {
-        super.onPause();
-        stopPreview();
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        System.out.println("onPause");
+////        stopPreview();
+//    }
 
     private void initView() {
         mSurfaceView = (SurfaceView) findViewById(R.id.surface_view);
@@ -116,25 +119,38 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
         }
         mCamera.startPreview();
         mCamera.cancelAutoFocus();
-        if (!mIsTimerRunning) {
-            mIsTimerRunning = true;
-            mHandler.post(timerRunnable);
-        }
+        new Thread(){
+            @Override
+            public void run() {
+                while (true) {
+                    if (!mIsTimerRunning) {
+                        mIsTimerRunning = true;
+                        mHandler.post(timerRunnable);
+                    }
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }}.start();
     }
 
-    private void stopPreview() {
-        //释放Camera对象
-        if (mCamera != null) {
-            try {
-                mCamera.setPreviewDisplay(null);
-                mCamera.stopPreview();
-                mCamera.release();
-                mCamera = null;
-            } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
-            }
-        }
-    }
+//    private void stopPreview() {
+//        return;
+//        //释放Camera对象
+////        if (mCamera != null) {
+////            try {
+////                System.out.println("stopPreview");
+////                mCamera.setPreviewDisplay(null);
+////                mCamera.stopPreview();
+////                mCamera.release();
+////                mCamera = null;
+////            } catch (Exception e) {
+////                Log.e(TAG, e.getMessage());
+////            }
+////        }
+//    }
 
     private Camera.Size getBestPreviewSize(int width, int height,
                                            Camera.Parameters parameters) {
@@ -152,6 +168,8 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
                 }
             }
         }
+//        System.out.println("height:" + result.height);
+//        System.out.println("width:" + result.width);
         return result;
     }
     @Override
@@ -166,6 +184,15 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
         }
     }
 
+//    HandlerThread handlerThread = new HandlerThread("takePic");
+//    Handler hand = new Handler(handlerThread.getLooper()){
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+////            mCamera.takePicture(null, null,null, diy.this);
+//        }
+//    };
+
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
@@ -173,16 +200,18 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             if (mCurrentTimer > 0) {
                 mTvCountDown.setText(mCurrentTimer + "");
                 mCurrentTimer--;
-                mHandler.postDelayed(timerRunnable, 300);
-            } else {
-                mTvCountDown.setText("");
+                mHandler.postDelayed(timerRunnable, 1000);
 
+            } else {
+                mTvCountDown.setText("666");
+//                hand.sendEmptyMessage(1);
                 mCamera.takePicture(null, null,null, diy.this);
                 mIsTimerRunning = false;
                 mCurrentTimer = 3;
             }
         }
     };
+
     private File createImageFile() {
         File image = null;
         image = new File(Environment.getExternalStorageDirectory()
@@ -198,19 +227,24 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
     }
     @Override
     public void onPictureTaken(byte[] data, Camera camera) {
+        mCamera.startPreview();
+        final byte[] datatmp = data;
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(datatmp, 0, datatmp.length);
+                    File file = new File(Environment.getExternalStorageDirectory()
+                            .getAbsolutePath(), generateFileName());
+                    FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    out.flush();
+                    out.close();
+                    mCamera.startPreview();
 
-        try {
-            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            File file =  new File(Environment.getExternalStorageDirectory()
-                    .getAbsolutePath(),generateFileName());
-            FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
-            out.flush();
-            out.close();
-            mCamera.startPreview();
-
-        } catch (Exception e) {
-            System.out.print(e.toString());
-        }
+                } catch (Exception e) {
+                    System.out.print(e.toString());
+                }
+            }}.start();
     }
 }
