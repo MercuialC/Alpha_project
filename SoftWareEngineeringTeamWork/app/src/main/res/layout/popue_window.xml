@@ -31,6 +31,13 @@
             android:background="@drawable/bg_popue"
             android:text="AR扫描"
             android:textSize="18sp" />
+        <Button
+            android:id="@+id/btn_pop_gallery"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/bg_popue"
+            android:text="本地相册"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btn_pop_cancel"

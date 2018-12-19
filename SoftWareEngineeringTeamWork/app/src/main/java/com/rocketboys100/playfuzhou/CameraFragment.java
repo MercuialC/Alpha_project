@@ -56,9 +56,16 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     public static final int TAKE_PHOTO = 0;
     public static final int TAKE_AR = 1;
+    public static final int TAKE_GALLERY = 2;
     public String mCurrentPhotoPath;
 
-
+    public void gallery() {
+            // 激活系统图库，选择一张图片
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                 intent.setType("image/*");
+                 // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+                startActivityForResult(intent, TAKE_GALLERY);
+          }
 
     private void takeCamera(int num) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -90,10 +97,11 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         View popView = View.inflate(getActivity(),R.layout.popue_window,null);
         Button bt_camera = popView.findViewById(R.id.btn_pop_camera);
         Button bt_AR = popView.findViewById(R.id.btn_pop_AR);
+        Button btn_gallery = popView.findViewById(R.id.btn_pop_gallery);
         Button bt_cancle = popView.findViewById(R.id.btn_pop_cancel);
         //获取屏幕宽高
         int weight = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels*1/3;
+        int height = getResources().getDisplayMetrics().heightPixels*9/23;
 
         final PopupWindow popupWindow = new PopupWindow(popView,weight,height);
         popupWindow.setAnimationStyle(R.style.anim_popup_dir);
@@ -130,12 +138,19 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 popupWindow.dismiss();
             }
         });
+        btn_gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gallery();
+            }
+        });
         bt_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
             }
         });
+
         //popupWindow消失屏幕变为不透明
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
@@ -170,6 +185,17 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             }
             else if(requestCode == TAKE_AR)                            //返回结果为AR扫描
             {
+
+            }
+            else if(requestCode == TAKE_GALLERY)
+            {
+                // 从相册返回的数据
+                if (data != null) {
+                    // 得到图片的全路径
+                    Uri uri = data.getData();
+                    mCurrentPhotoPath=uri.getPath();
+                    Toast.makeText(getActivity(),mCurrentPhotoPath,Toast.LENGTH_SHORT).show();
+                }
             }
         }
     }
