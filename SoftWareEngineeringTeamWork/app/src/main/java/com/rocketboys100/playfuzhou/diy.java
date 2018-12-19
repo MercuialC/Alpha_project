@@ -104,14 +104,14 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             parameters.setPreviewSize(size.width, size.height);
 
             //设置保存图片的大小
-            parameters.setPictureSize(size.width, size.height);
+            //parameters.setPictureSize(size.width, size.height);
         }
 
-        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_AUTO);
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
        // parameters.setPreviewFrameRate(20);
         //设置相机预览方向
         mCamera.setDisplayOrientation(90);
-        //mCamera.setParameters(parameters);
+        mCamera.setParameters(parameters);
         try {
             mCamera.setPreviewDisplay(mHolder);
         } catch (Exception e) {
@@ -156,20 +156,22 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
                                            Camera.Parameters parameters) {
         Camera.Size result = null;
         for (Camera.Size size : parameters.getSupportedPreviewSizes()) {
-            if (size.width <= width && size.height <= height) {
-                if (result == null) {
-                    result = size;
-                } else {
-                    int resultArea = result.width * result.height;
-                    int newArea = size.width * size.height;
-                    if (newArea > resultArea) {
-                        result = size;
-                    }
-                }
-            }
-        }
+//            if (size.width <= width && size.height <= height) {
+//                if (result == null) {
+//                    result = size;
+//                } else {
+//                    int resultArea = result.width * result.height;
+//                    int newArea = size.width * size.height;
+//                    if (newArea > resultArea) {
+//                        result = size;
+//                    }
+//                }
+//            }
+        result=size;
+       }
 //        System.out.println("height:" + result.height);
 //        System.out.println("width:" + result.width);
+
         return result;
     }
     @Override
