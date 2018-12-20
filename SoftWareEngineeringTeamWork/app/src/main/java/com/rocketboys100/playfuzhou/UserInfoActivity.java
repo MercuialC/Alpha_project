@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class wodexinxiActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Context mContext;
     private ImageView iv_myhead;
@@ -131,7 +131,7 @@ public class wodexinxiActivity extends AppCompatActivity implements View.OnClick
 //import com.rocketboys100.playfuzhou.costom_layouts.UD_text;
 //
 //
-//public class wodexinxiActivity extends AppCompatActivity {
+//public class UserInfoActivity extends AppCompatActivity {
 //
 //    private Button avatar;
 //    private RL_text nizi;
@@ -160,7 +160,7 @@ public class wodexinxiActivity extends AppCompatActivity implements View.OnClick
 //        motto = findViewById(R.id.btn_motto);
 //        location = findViewById(R.id.btn_location);
 //        btn_reinfo = findViewById(R.id.rb_return_info);
-//        mContext = wodexinxiActivity.this;
+//        mContext = UserInfoActivity.this;
 //        setDrawleft(btn_reinfo,R.drawable.leftarrow);
 //        account.setleftText("账户");
 //        account.setrightText("账户待定");

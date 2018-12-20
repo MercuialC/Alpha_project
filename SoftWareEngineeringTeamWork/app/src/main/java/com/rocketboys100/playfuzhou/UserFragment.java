@@ -16,8 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rocketboys100.playfuzhou.R;
-
 
 /**
  * A simple {@link Fragment} subclass.
@@ -129,16 +127,17 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        Intent intent;
         switch(v.getId()){
             case R.id.btn_userInfo:
                 if(hasLogined) {
                     System.out.println("进入用户信息详情页");
-                    Intent intent = new Intent(getActivity(),wodexinxiActivity.class);
+                    intent = new Intent(getActivity(),UserInfoActivity.class);
                     startActivity(intent);
                     break;
                 }else{
                     hasLogined = true;
-                    Intent intent = new Intent(getActivity(),Login.class);
+                    intent = new Intent(getActivity(),Login.class);
                     startActivityForResult(intent, RequestCode_Login);
                 }
                 break;
@@ -147,12 +146,16 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 updateUserInfoBolck();
                 break;
             case R.id.btn_activity:
-                Intent intent = new Intent(getActivity(),ActivityCenter.class);
+                intent = new Intent(getActivity(),ActivityCenter.class);
                 startActivity(intent);
                 break;
             case R.id.btn_setting:
-                Intent intent1 = new Intent(getActivity(),SettingActivity.class);
-                startActivity(intent1);
+                intent = new Intent(getActivity(),SettingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_collection:
+                intent = new Intent(getActivity(), CollectionActivity.class);
+                startActivity(intent);
                 break;
         }
     }
