@@ -4,6 +4,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_gaodemap">gaodemap</string>
     <string name="title_activity_collection">collection</string>
+    <string name="title_activity_scan_result">ScanResult</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

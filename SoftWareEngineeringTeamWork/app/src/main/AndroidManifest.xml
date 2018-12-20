@@ -69,7 +69,10 @@
 
         <activity
             android:name=".CollectionActivity"
-            android:label="@string/title_activity_collection"></activity>
+            android:label="@string/title_activity_collection" />
+        <activity
+            android:name=".ScanResult"
+            android:label="@string/title_activity_scan_result"></activity>
     </application>
 
 </manifest>

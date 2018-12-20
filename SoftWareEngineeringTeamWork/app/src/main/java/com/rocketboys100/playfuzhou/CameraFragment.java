@@ -2,8 +2,11 @@ package com.rocketboys100.playfuzhou;
 
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
+import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.provider.MediaStore;
 import android.app.Fragment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +28,21 @@ import android.widget.Toast;
 import com.rocketboys100.playfuzhou.R;
 
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -63,7 +74,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             // 激活系统图库，选择一张图片
                 Intent intent = new Intent(Intent.ACTION_PICK);
                  intent.setType("image/*");
-                 // 开启一个带有返回值的Activity，请求码为PHOTO_REQUEST_GALLERY
+                 // 开启一个带有返回值的Activity，请求码为TAKE_GALLERY
                 startActivityForResult(intent, TAKE_GALLERY);
           }
 
@@ -180,8 +191,8 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             if (requestCode == TAKE_PHOTO) {                         //返回结果为拍照上传
                 Toast.makeText(getActivity(),"拍照完成",Toast.LENGTH_SHORT).show();
                 //getActivity().sendBroadcast(data);
-                uploadPic(mCurrentPhotoPath);
-//                downloadCalcResult();
+                uploadPic();
+
             }
             else if(requestCode == TAKE_AR)                            //返回结果为AR扫描
             {
@@ -193,8 +204,26 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 if (data != null) {
                     // 得到图片的全路径
                     Uri uri = data.getData();
-                    mCurrentPhotoPath=uri.getPath();
-                    Toast.makeText(getActivity(),mCurrentPhotoPath,Toast.LENGTH_SHORT).show();
+
+                    Cursor cursor = getActivity().getContentResolver().query(uri, null,null,null,null );
+                    int colum_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                    cursor.moveToFirst();
+                    mCurrentPhotoPath = cursor.getString(colum_index);
+
+
+//                    ContentResolver resolver = getActivity().getContentResolver();
+//                    Uri uri = data.getData();
+//                    try {
+//                        MediaStore.Images.Media.getBitmap(resolver,uri);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    mCurrentPhotoPath = MediaStore.Images.Media.DATA;
+//                    Cursor cursor = managedQuery(uri,mCurrentPhotoPath,null,null,null);
+
+                   // mCurrentPhotoPath=uri.getPath();
+                    Toast.makeText(getActivity(),"选取本地图片\n" + mCurrentPhotoPath,Toast.LENGTH_SHORT).show();
+                    uploadPic();
                 }
             }
         }
@@ -221,7 +250,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private final OkHttpClient client = new OkHttpClient();
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
-    private void uploadPic(final String fileName)
+    private void uploadPic()
     {
         new Thread(){
             @Override
@@ -235,10 +264,9 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.context, "fail", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "fail", Toast.LENGTH_SHORT).show();
                             }
                         });
-
                     }
 
                     @Override
@@ -246,7 +274,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.context, "上传成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
                                 downloadCalcResult();
                             }
                         });
@@ -279,7 +307,12 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                         if(connection.getResponseCode() == 200)
                         {
                             InputStream is = connection.getInputStream();
-
+//                            char c;
+//                            String thisLine = "";
+//                            while((c = (char) is.read())>=0)
+//                            {
+//                                thisLine += c;
+//                            }
                             BufferedReader br = new BufferedReader(new InputStreamReader(is));
                             String thisLine;
                             if ((thisLine = br.readLine()) != null) {
@@ -293,11 +326,12 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(MainActivity.context, "下载结果完成" + tmp, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getActivity(), "下载结果完成" + tmp, Toast.LENGTH_SHORT).show();
                                 }
                             });
                             //--------------------------------------------------------------
-                            downloadOK("ok");
+//                            downloadOK();
+                            downloadOK2();
                             //--------------------------------------------------------------
                             break;
                         }
@@ -309,39 +343,50 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     }
 
-    private void downloadOK(final String fileName) {
-        new Thread(){
-            @Override
-            public void run() {
-
-                File flie_img = new File(mCurrentPhotoPath);
-                postPicture(MainActivity.serverURL +"OkHttpTest/uploadFile.do", flie_img, new okhttp3.Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.context, "fail", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.context, "本次识别完成", Toast.LENGTH_SHORT).show();
-                                //downloadCalcResult();
-                            }
-                        });
-                    }
-                });
-            }}.start();
-
-    }
+//    private void downloadOK() {
+//        final String fileName = Environment.getExternalStorageDirectory().getPath() + "tmp_picture.jpg";
+////        AssetManager.open("tmp.jpg",)
+//        new Thread(){
+//            @Override
+//            public void run() {
+//
+//                final File flie_img = new File(fileName);
+//                mainActivity.runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Toast.makeText(MainActivity.context, (int) flie_img.getTotalSpace(), Toast.LENGTH_SHORT).show();
+//                        }catch(Exception err){
+//                            err.printStackTrace();
+//                        }
+//                    }
+//                });
+//                postPicture(MainActivity.serverURL +"OkHttpTest/uploadFile.do", flie_img, new okhttp3.Callback() {
+//                    @Override
+//                    public void onFailure(Call call, IOException e) {
+//                        e.printStackTrace();
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(MainActivity.context, "fail", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+//                    }
+//
+//                    @Override
+//                    public void onResponse(Call call, Response response) throws IOException {
+//                        getActivity().runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(MainActivity.context, "本次识别完成", Toast.LENGTH_SHORT).show();
+//                                //downloadCalcResult();
+//                            }
+//                        });
+//                    }
+//                });
+//            }}.start();
+//    }
 
 //    private void downloadPic(final String fileName) {
 //        new Thread(){
@@ -392,6 +437,19 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         btn_his = view.findViewById(R.id.btn_his);
         btn_his.setOnClickListener(this);
+        try {
+            File file = new File(Environment.getExternalStorageDirectory().getPath(),"buf.txt");
+            FileOutputStream ofs = null;
+            ofs = new FileOutputStream(file);
+            ofs.write(Integer.parseInt("0"));
+            ofs.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return view;
     }
@@ -419,4 +477,66 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+
+
+
+
+    private void downloadOK2() throws IOException {
+
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.addFormDataPart("username", "ansen");//表单参数
+        builder.addFormDataPart("password", "123456");//表单参数
+
+        builder.setType(MultipartBody.FORM);
+        MediaType mediaType = MediaType.parse("application/octet-stream");
+        //MediaType Image = MediaType.parse("image/jpeg; charset=utf-8");
+        byte[] bytes=getUploadFileBytes();//获取文件内容存入byte数组
+        //上传文件 参数1:name 参数2:文件名称 参数3:文件byte数组
+        //builder.addFormDataPart("upload_file", "ansen.txt",RequestBody.create(Image,bytes));
+        builder.addFormDataPart("upload_file", "ansen.txt",RequestBody.create(mediaType,bytes));
+        RequestBody requestBody = builder.build();
+        Request.Builder requestBuider = new Request.Builder();
+        requestBuider.url(MainActivity.serverURL + "OkHttpTest/uploadFile.do");
+        requestBuider.post(requestBody);
+        execute(requestBuider);
+    }
+
+    private byte[] getUploadFileBytes(){
+        byte[] bytes=null;
+        try {
+
+            InputStream inputStream = getActivity().getAssets().open("ansen.txt");
+            Log.i("ansen","文件长度:"+inputStream.available());
+            bytes = new byte[inputStream.available()];
+            inputStream.read(bytes);
+            inputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bytes;
+    }
+
+    private void execute(Request.Builder builder){
+        Call call = client.newCall(builder.build());
+        call.enqueue(callback);//加入调度队列
+    }
+
+    private Callback callback=new Callback(){
+        @Override
+        public void onFailure(Call call, IOException e) {
+            Log.i("MainActivity","onFailure");
+            e.printStackTrace();
+        }
+
+        @Override
+        public void onResponse(Call call, Response response) throws IOException {
+            //从response从获取服务器返回的数据，转成字符串处理
+            String str = new String(response.body().bytes(),"utf-8");
+            Log.i("MainActivity","onResponse:"+str);
+        }
+    };
+
+
+
 }

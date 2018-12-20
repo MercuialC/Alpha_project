@@ -39,6 +39,7 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
     private static final int CAMERA_ID = 0; //后置摄像头
     private static final String TAG = MainActivity.class.getSimpleName();
     private String mCurrentPhotoPath;
+    private boolean hasExit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,12 +56,21 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             initEvent();
         }
     }
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        System.out.println("onPause");
-////        stopPreview();
-//    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        System.out.println("onBack");
+        stopPreview();
+        hasExit = true;
+        finish();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        System.out.println("onPause");
+        stopPreview();
+    }
 
     private void initView() {
         mSurfaceView = (SurfaceView) findViewById(R.id.surface_view);
@@ -119,38 +129,61 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
         }
         mCamera.startPreview();
         mCamera.cancelAutoFocus();
+        takePic();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    if (!mIsTimerRunning) {
+//                        mIsTimerRunning = true;
+//                        mHandler.post(timerRunnable);
+//                    }
+//                    try {
+//                        Thread.sleep(500);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+////            }}.start();
+
+//        if (!mIsTimerRunning) {
+//            mIsTimerRunning = true;
+//            mHandler.post(timerRunnable);
+//        }
+    }
+
+    private void takePic()
+    {
         new Thread(){
             @Override
             public void run() {
-                while (true) {
-                    if (!mIsTimerRunning) {
-                        mIsTimerRunning = true;
-                        mHandler.post(timerRunnable);
-                    }
+                while(true) {
+                    mCamera.takePicture(null, null, null, diy.this);
                     try {
-                        Thread.sleep(500);
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                    }
+                    if(hasExit) {
+                        break;
                     }
                 }
             }}.start();
     }
-
-//    private void stopPreview() {
-//        return;
-//        //释放Camera对象
-////        if (mCamera != null) {
-////            try {
-////                System.out.println("stopPreview");
-////                mCamera.setPreviewDisplay(null);
-////                mCamera.stopPreview();
-////                mCamera.release();
-////                mCamera = null;
-////            } catch (Exception e) {
-////                Log.e(TAG, e.getMessage());
-////            }
-////        }
-//    }
+    private void stopPreview() {
+        //释放Camera对象
+        if (mCamera != null) {
+            try {
+                System.out.println("stopPreview");
+                mCamera.setPreviewDisplay(null);
+                mCamera.stopPreview();
+                mCamera.release();
+                mCamera = null;
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+    }
 
     private Camera.Size getBestPreviewSize(int width, int height,
                                            Camera.Parameters parameters) {
@@ -203,7 +236,6 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
                 mTvCountDown.setText(mCurrentTimer + "");
                 mCurrentTimer--;
                 mHandler.postDelayed(timerRunnable, 1000);
-
             } else {
                 mTvCountDown.setText("666");
 //                hand.sendEmptyMessage(1);
