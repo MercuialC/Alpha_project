@@ -157,6 +157,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 intent = new Intent(getActivity(), CollectionActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.btn_info:
+                intent = new Intent(getActivity(),ScanResult.class);
+                startActivity(intent);
+                break;
         }
     }
 
