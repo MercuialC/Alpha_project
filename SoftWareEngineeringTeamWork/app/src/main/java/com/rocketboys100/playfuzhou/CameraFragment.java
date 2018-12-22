@@ -46,6 +46,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -63,7 +64,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private Button btn_camera;
     private MainActivity mainActivity;
     private Button btn_his;
-    private List<String> scanResult;
+    private ArrayList<String> scanResult;
 
     public static final int TAKE_PHOTO = 0;
     public static final int TAKE_AR = 1;
@@ -219,7 +220,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 //                        e.printStackTrace();
 //                    }
 //                    mCurrentPhotoPath = MediaStore.Images.Media.DATA;
-//                    Cursor cursor = managedQuery(uri,mCurrentPhotoPath,null,null,null);
+//                    Cursor cursor = managedQuery(uri,mCurrentPhotoPath,nullshop,nullshop,nullshop);
 
                    // mCurrentPhotoPath=uri.getPath();
                     Toast.makeText(getActivity(),"选取本地图片\n" + mCurrentPhotoPath,Toast.LENGTH_SHORT).show();
@@ -307,26 +308,20 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
                         if(connection.getResponseCode() == 200)
                         {
                             InputStream is = connection.getInputStream();
-//                            char c;
-//                            String thisLine = "";
-//                            while((c = (char) is.read())>=0)
-//                            {
-//                                thisLine += c;
-//                            }
                             BufferedReader br = new BufferedReader(new InputStreamReader(is));
                             String thisLine;
-                            if ((thisLine = br.readLine()) != null) {
+                            while ((thisLine = br.readLine()) != null) {
                                 scanResult.add(thisLine);
                             }
                             br.close();
 
-                            final String tmp = thisLine;
+                            final String tmp = scanResult.get(0);
 
                             is.close();
                             mainActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getActivity(), "下载结果完成" + tmp, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "识别结果:" + tmp, Toast.LENGTH_SHORT).show();
                                 }
                             });
                             //--------------------------------------------------------------
@@ -525,15 +520,35 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
     private Callback callback=new Callback(){
         @Override
         public void onFailure(Call call, IOException e) {
-            Log.i("MainActivity","onFailure");
+//            Log.i("MainActivity","onFailure");
             e.printStackTrace();
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getActivity(), "覆盖文件出错", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
         public void onResponse(Call call, Response response) throws IOException {
             //从response从获取服务器返回的数据，转成字符串处理
-            String str = new String(response.body().bytes(),"utf-8");
-            Log.i("MainActivity","onResponse:"+str);
+//            String str = new String(response.body().bytes(),"utf-8");
+//            Log.i("MainActivity","onResponse:"+str);
+
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getActivity(), "本次识别完成", Toast.LENGTH_SHORT).show();
+                    if(scanResult.size()>2) {
+                        Intent intent = new Intent(getActivity(), ScanResult.class);
+                        intent.putExtra("scanResult", (Serializable) scanResult);
+                        startActivity(intent);
+                    }
+                }
+            });
+
+
         }
     };
 

@@ -57,7 +57,7 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
             while(cursor.moveToNext()){
                 String picPath = cursor.getString(0);
                 String shopName = cursor.getString(1);
-                lists.add(new CollectionItem(shopName, picPath));
+                lists.add(0, new CollectionItem(shopName, picPath));
             }
         }
         db.close();
@@ -137,9 +137,9 @@ public class CollectionActivity extends AppCompatActivity implements View.OnClic
             tv.setText(lists.get(position).getShopName());
 
             String picPath = lists.get(position).getPicUrl();
-            //           File file = new File(picPath);
+            File file = new File(picPath);
 //            用于测试
-            File file = new File(Environment.getExternalStorageDirectory().getPath(),"bee.png");
+//            File file = new File(Environment.getExternalStorageDirectory().getPath(),"bee.png");
             if(file.exists()) {
                 ImageView iv = view.findViewById(R.id.iv_his);
                 Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());

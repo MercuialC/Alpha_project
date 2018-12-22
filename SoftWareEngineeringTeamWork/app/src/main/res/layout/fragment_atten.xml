@@ -2,15 +2,118 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rocketboys100.playfuzhou.camera.com.rocketboys100.playfuzhou.RecomFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.rocketboys100.playfuzhou.RecomFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ScrollView
+
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ScrollView>
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="137dp"
+                android:layout_height="146dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/recommend3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.531"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="137dp"
+                android:layout_height="53dp"
+                android:text="雪花蛋糕"
+                android:textColor="#2b2724"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView6"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView6"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="167dp"
+                android:layout_height="55dp"
+                android:gravity="center_horizontal"
+                android:text="菲力牛排"
+                android:textColor="#2b2724"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/imageView4"
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="143dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/reconmend2"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="313dp"
+                android:layout_height="165dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="236dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/recommend1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="307dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_horizontal"
+                android:text="龙虾大餐"
+                android:textColor="#2b2724"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="轻触刷新" />
+
+            <Button
+                android:id="@+id/btn_cs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5"
+                android:background="#fff"
+                android:text="给出您的宝贵意见"
+                android:textColor="#87b3d2" />
+        </LinearLayout>
+
     </LinearLayout>
+
+
 
 </FrameLayout>

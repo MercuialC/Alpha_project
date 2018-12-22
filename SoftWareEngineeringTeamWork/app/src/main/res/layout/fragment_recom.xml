@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.rocketboys100.playfuzhou.camera.com.rocketboys100.playfuzhou.RecomFragment">
+    tools:context="com.rocketboys100.playfuzhou.RecomFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
             <ImageView
                 android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
-                android:layout_height="132dp"
+                android:layout_height="142dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/reconmend2"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"

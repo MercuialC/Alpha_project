@@ -2,6 +2,7 @@ package com.rocketboys100.playfuzhou;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -95,7 +96,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-
+    final int RequestCode_Phone = 9;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -125,9 +126,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.btn_wechat:
-                Toast.makeText(this, "use wechat", Toast.LENGTH_SHORT).show();
-                ad_qq_wechat.hide();
-                break;
+//                Toast.makeText(this, "使用手机登录", Toast.LENGTH_SHORT).show();
+//                ad_qq_wechat.hide();
+//                Intent intent = new Intent(getApplicationContext(),messaging_login.class);
+////                startActivityForResult(intent, RequestCode_Phone);
+//                startActivity(intent);
+//                break;
             case R.id.btn_forget:
                 Toast.makeText(this, "forget", Toast.LENGTH_SHORT).show();
                 break;
@@ -248,6 +252,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_LOGIN) {
             Tencent.onActivityResultData(requestCode, resultCode, data, mIUiListener);
+        }else if(requestCode == this.RequestCode_Phone){
+            String phoneNum = data.getStringExtra("phoneNum");
+
+            Intent intent = new Intent();
+            intent.putExtra("userName", phoneNum);
+            intent.putExtra("userOpenID", "");
+            intent.putExtra("userHeadPath", "");
+            intent.putExtra("userGender", "保密");
+            intent.putExtra("userCity", "福州");
+            setResult(RequestCode_Login,intent);
+            finish();
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

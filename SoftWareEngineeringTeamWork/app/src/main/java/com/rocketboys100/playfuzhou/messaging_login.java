@@ -1,6 +1,7 @@
 package com.rocketboys100.playfuzhou;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -28,7 +29,7 @@ public class messaging_login extends AppCompatActivity {
     private Button login;
     private String phoneNum="";
     static int i=60;
-
+    final int RequestCode_Phone = 9;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +78,12 @@ public class messaging_login extends AppCompatActivity {
 
                         Toast.makeText(getApplicationContext(), "登录成功",
                                 Toast.LENGTH_SHORT).show();
+//                        String phoneNum = phone.getText().toString();
+//                        Intent intent = new Intent();
+//                        intent.putExtra("phoneNum", phoneNum);
+//                        setResult(RequestCode_Phone,intent);
+                        finish();
+
                     } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         Toast.makeText(getApplicationContext(), "验证码已经发送",
                                 Toast.LENGTH_SHORT).show();

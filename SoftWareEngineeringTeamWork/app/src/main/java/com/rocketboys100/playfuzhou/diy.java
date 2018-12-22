@@ -1,11 +1,13 @@
 package com.rocketboys100.playfuzhou;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -131,14 +134,14 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
 //                            paint.setAlpha(255);//设置不透明度为255
 //                            canvas.drawRect(0, 0, 720, 1080, paint);
 //                            //进行平面贴图
-//                            if(currentLogo==null)return;
+//                            if(currentLogo==nullshop)return;
 //                            paint.setAlpha(currentAlpha);
 //                            canvas.drawBitmap(currentLogo, currentX, currentY, paint);
 //                        }
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    } finally {
-//                        if (canvas != null)//如果当前画布不为空
+//                        if (canvas != nullshop)//如果当前画布不为空
 //                        {
 //                            holderfinal.unlockCanvasAndPost(canvas);//解锁画布
 //                        }
@@ -229,10 +232,10 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2500);
+                    Thread.sleep(3500);
                     while(!hasExit) {
 //                        System.out.println("1");
-                        Thread.sleep(400);
+                        Thread.sleep(500);
                         if(hasExit){
                             break;
                         }
@@ -331,6 +334,14 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
                     Bitmap bitmap = BitmapFactory.decodeByteArray(datatmp, 0, datatmp.length);
                     File file = new File(Environment.getExternalStorageDirectory()
                             .getAbsolutePath(), generateFileName());
+
+                    Matrix matrix = new Matrix();
+                    matrix.postScale(1f, 1f);
+                    matrix.postRotate(90);
+                    bitmap = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(),bitmap.getHeight(),matrix,true);
+
+
+
                     FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
                     bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
                     out.flush();
@@ -408,7 +419,6 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             scanResult = new ArrayList<String>();
         else
             scanResult.clear();
-        System.out.println("in");
         new Thread(){
             @Override
             public void run() {
@@ -426,18 +436,18 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
                             InputStream is = connection.getInputStream();
                             BufferedReader br = new BufferedReader(new InputStreamReader(is));
                             String thisLine;
-                            if ((thisLine = br.readLine()) != null) {
+                            while ((thisLine = br.readLine()) != null) {
                                 scanResult.add(thisLine);
                             }
                             br.close();
 
-                            final String tmp = thisLine;
+                            final String tmp = scanResult.get(0);
 
                             is.close();
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast.makeText(getApplicationContext(), "识别结果\n" + tmp, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "识别结果:" + tmp, Toast.LENGTH_SHORT).show();
                                 }
                             });
                             //--------------------------------------------------------------
@@ -497,8 +507,15 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
     private Callback callback=new Callback(){
         @Override
         public void onFailure(Call call, IOException e) {
-            Log.i("onFailure","onFailure");
+//            Log.i("onFailure","onFailure");
             e.printStackTrace();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "覆盖文件出错", Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
 
         @Override
@@ -506,14 +523,25 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
             //从response从获取服务器返回的数据，转成字符串处理
 //            String str = new String(response.body().bytes(),"utf-8");
 //            Log.i("onResponse","onResponse:"+str);
-
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     Toast.makeText(getApplicationContext(), "本次识别完成", Toast.LENGTH_SHORT).show();
+                    if(scanResult.size()>2) {
+                        stopPreview();
+                        hasExit = true;
+                        Intent intent = new Intent(getApplicationContext(), ScanResult.class);
+                        intent.putExtra("scanResult", (Serializable) scanResult);
+                        startActivity(intent);
+                        finish();
+                    }else{
+                        waitFlag = false;
+                    }
                     waitFlag = false;
                 }
             });
+
+
         }
     };
 

@@ -57,7 +57,7 @@ public class HistoryPage extends AppCompatActivity implements View.OnClickListen
             while(cursor.moveToNext()){
                 String picPath = cursor.getString(0);
                 String text = cursor.getString(1);
-                lists.add(new History(picPath, text));
+                lists.add(0, new History(picPath, text));
             }
         }
         db.close();
@@ -116,13 +116,17 @@ public class HistoryPage extends AppCompatActivity implements View.OnClickListen
             TextView tv = view.findViewById(R.id.tv_his);
             tv.setText(lists.get(position).getText());
 
+            Bitmap bitmap = null;
+            ImageView iv = view.findViewById(R.id.iv_his);
+            bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.nullpic);
+            iv.setImageBitmap(bitmap);
+
             String picPath = lists.get(position).getPicPath();
- //           File file = new File(picPath);
+            File file = new File(picPath);
 //            用于测试
-            File file = new File(Environment.getExternalStorageDirectory().getPath(),"bee.png");
+//            File file = new File(Environment.getExternalStorageDirectory().getPath(),"bee.png");
             if(file.exists()) {
-                ImageView iv = view.findViewById(R.id.iv_his);
-                Bitmap bitmap = BitmapFactory.decodeFile(file.getPath());
+                bitmap = BitmapFactory.decodeFile(file.getPath());
                 iv.setImageBitmap(bitmap);
             }
 

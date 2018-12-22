@@ -140,13 +140,13 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 //    private UD_text motto;
 //    private UD_text location;
 //    private Context mContext;
-//    private AlertDialog alert = null;
-//    private AlertDialog.Builder builder = null;
+//    private AlertDialog alert = nullshop;
+//    private AlertDialog.Builder builder = nullshop;
 //    private RadioButton btn_reinfo;
 //    private void setDrawleft(RadioButton button, int res) {
 //        Drawable drawable = getResources().getDrawable(res);
 //        drawable.setBounds(0, 0, 40, 40);
-//        button.setCompoundDrawables(drawable, null, null, null);
+//        button.setCompoundDrawables(drawable, nullshop, nullshop, nullshop);
 //    }
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -183,10 +183,10 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 //        nizi.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                alert = null;
+//                alert = nullshop;
 //                builder = new AlertDialog.Builder(mContext);
 //                final EditText inputServer = new EditText(mContext);
-//                alert = builder.setTitle("昵称").setView(inputServer).setNegativeButton("取消",null).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                alert = builder.setTitle("昵称").setView(inputServer).setNegativeButton("取消",nullshop).setPositiveButton("确认", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        nizi.setrightText(inputServer.getText().toString());
@@ -205,7 +205,7 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 //            @Override
 //            public void onClick(View v) {
 //                final String[] sex = new String[]{"男", "女"};
-//                alert = null;
+//                alert = nullshop;
 //                builder = new AlertDialog.Builder(mContext);
 //                alert = builder.setTitle("性别").setSingleChoiceItems(sex, 2, new DialogInterface.OnClickListener() {
 //                    @Override
@@ -227,10 +227,10 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 //        motto.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                alert = null;
+//                alert = nullshop;
 //                builder = new AlertDialog.Builder(mContext);
 //                final EditText inputServer = new EditText(mContext);
-//                alert = builder.setTitle("签名").setView(inputServer).setNegativeButton("取消",null).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                alert = builder.setTitle("签名").setView(inputServer).setNegativeButton("取消",nullshop).setPositiveButton("确认", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        motto.setTdown(inputServer.getText().toString());
@@ -242,10 +242,10 @@ public class UserInfoActivity extends AppCompatActivity implements View.OnClickL
 //        location.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                alert = null;
+//                alert = nullshop;
 //                builder = new AlertDialog.Builder(mContext);
 //                final EditText inputServer = new EditText(mContext);
-//                alert = builder.setTitle("地区").setView(inputServer).setNegativeButton("取消",null).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+//                alert = builder.setTitle("地区").setView(inputServer).setNegativeButton("取消",nullshop).setPositiveButton("确认", new DialogInterface.OnClickListener() {
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        location.setTdown(inputServer.getText().toString());
