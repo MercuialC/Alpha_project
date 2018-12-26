@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <TextView
+        android:id="@+id/tv_com_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="texttexttexttexttext"
+        android:textSize="18sp"
+        android:typeface="serif"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"/>
+
+</LinearLayout>

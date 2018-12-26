@@ -12,13 +12,18 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -68,12 +73,13 @@ public class ScanResult extends AppCompatActivity {
     private String picpath;
     private Button btn_collect;
     private boolean collected = false;
+    private ListView lv_comments;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan_result);
         getSupportActionBar().hide();
-
 
         dbOpenHelper = new HistoryDBOpenHelper(getApplicationContext());
         collectionDBOpenHelper = new CollectionDBOpenHelper(getApplicationContext());
@@ -121,9 +127,11 @@ public class ScanResult extends AppCompatActivity {
         shopname = tmp.get(0);
         tv_shopName.setText(shopname);
 
-
         tv_introction = findViewById(R.id.tv_introduction);
         tv_introction.setText(tmp.get(1));
+
+        lv_comments = findViewById(R.id.lv_comments);
+        lv_comments.setAdapter(new CommentsListViewAdapter());
 
         iv_shopIcon = findViewById(R.id.iv_shopIcon);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.nullpic);
@@ -175,7 +183,7 @@ public class ScanResult extends AppCompatActivity {
         int[] color = {R.color.colorAccent,R.color.colorPrimary,R.color.colorPrimaryDark};//{R.color.red, R.color.blue, R.color.white,R.color.yellow};
 
         TextView tv = new TextView(this);
-        tv.setTextSize(15);
+        tv.setTextSize(18);
         tv.setTextColor(Color.rgb(random.nextInt(256),random.nextInt(256), random.nextInt(256)));
         int index = (int)(Math.random() * scanResult.size());
         tv.setText(scanResult.get(index));
@@ -199,7 +207,7 @@ public class ScanResult extends AppCompatActivity {
                 handler.sendMessage(message);
             }
         };
-        timer.schedule(task, new Date(), 700);
+        timer.schedule(task, new Date(), 1000);
     }
 
     private Handler handler = new Handler() {
@@ -214,4 +222,38 @@ public class ScanResult extends AppCompatActivity {
             super.handleMessage(msg);
         }
     };
+
+
+    class CommentsListViewAdapter extends BaseAdapter
+    {
+
+        @Override
+        public int getCount() {
+            return scanResult.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View view = null;
+            if(convertView == null) {
+                view = View.inflate(ScanResult.this, R.layout.comment_item, null);
+            } else {
+                view = (View)convertView;
+            }
+            TextView tv = view.findViewById(R.id.tv_com_item);
+            tv.setText(scanResult.get(position));
+            return view;
+        }
+    }
+
 }

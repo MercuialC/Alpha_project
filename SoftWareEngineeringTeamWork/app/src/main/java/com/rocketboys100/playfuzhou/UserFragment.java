@@ -16,6 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mob.tools.network.StringPart;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,6 +132,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private List<String> scanResulttest;
     @Override
     public void onClick(View v) {
         Intent intent;
@@ -158,6 +166,15 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.btn_info:
+                if(scanResulttest==null)
+                    scanResulttest = new ArrayList<String>();
+                for(int i=0;i<100;i++)
+                {
+                    scanResulttest.add(Double.toString(Math.random()));
+                }
+                intent = new Intent(getActivity(), ScanResult.class);
+                intent.putExtra("scanResult", (Serializable) scanResulttest);
+//                startActivity(intent);
                 break;
             case R.id.btn_CustomerService:
                 intent = new Intent(getActivity(),myCustomerServices.class);

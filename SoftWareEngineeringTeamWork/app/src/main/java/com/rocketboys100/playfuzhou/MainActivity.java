@@ -1,10 +1,14 @@
 package com.rocketboys100.playfuzhou;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.support.annotation.IdRes;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -42,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
         btnhome = findViewById(R.id.rb_home);
         btnuser = findViewById(R.id.rb_user);
         btn_camera = findViewById(R.id.btn_camera);
+
+        String[] permission = new String[] {Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.RECEIVE_SMS,Manifest.permission.READ_SMS,Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                Manifest.permission.READ_PHONE_STATE,Manifest.permission.READ_CONTACTS,Manifest.permission.ACCESS_NETWORK_STATE};
+        ActivityCompat.requestPermissions(this,permission,permission.length);
 
         // setDrawleft(btncamera,R.drawable.camera_black);
         // setDrawleft(btncamera,R.drawable.camera_red);

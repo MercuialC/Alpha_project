@@ -75,15 +75,15 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diy);
         getSupportActionBar().hide();
-        if (ContextCompat.checkSelfPermission(diy.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                &&ContextCompat.checkSelfPermission(diy.this, Manifest.permission.WRITE_EXTERNAL_STORAGE )!=PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(diy.this, new String[]{Manifest.permission.CAMERA,}, 1);
-        }
-        else
-        {
+//        if (ContextCompat.checkSelfPermission(diy.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+//                &&ContextCompat.checkSelfPermission(diy.this, Manifest.permission.WRITE_EXTERNAL_STORAGE )!=PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(diy.this, new String[]{Manifest.permission.CAMERA,}, 1);
+//        }
+//        else
+//        {
             initView();
             initEvent();
-        }
+ //       }
     }
     @Override
     public void onBackPressed()
@@ -343,7 +343,7 @@ public class diy extends AppCompatActivity implements SurfaceHolder.Callback,
 
 
                     FileOutputStream out = new FileOutputStream(file.getAbsoluteFile());
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);//压缩质量为原图的50%
                     out.flush();
                     out.close();
                     mCamera.startPreview();
